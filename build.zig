@@ -26,6 +26,16 @@ pub fn build(b: *Builder) void {
         };
         exe.addCSourceFile("src/sokol.c", c_args);
         exe.addCSourceFile("src/clear-sapp.c", c_args);
+    } else if (builtin.os == .windows) {
+        exe.addIncludeDir("C:/Program Files (x86)/Windows Kits/10/Include/10.0.17763.0/um");
+        exe.addIncludeDir("C:/Program Files (x86)/Windows Kits/10/Include/10.0.17763.0/shared");
+        exe.linkSystemLibrary("c");
+        exe.linkSystemLibrary("user32");
+        exe.linkSystemLibrary("gdi32");
+
+        const c_args = [_][]const u8{};
+        exe.addCSourceFile("src/sokol.c", c_args);
+        exe.addCSourceFile("src/clear-sapp.c", c_args);
     }
     exe.install();
 
